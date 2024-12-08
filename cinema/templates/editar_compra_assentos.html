@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editar Compra de Assento</title>
+        <!-- Inclua o CSS do seu projeto ou bootstrap -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Editar Compra de Assento</h2>
+            <!-- Exibir mensagens de sucesso ou erro -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert {{ messages[0][0] }}">
+                        {{ messages[0][1] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <form action="{{ url_for('atualizar_compra_assentos') }}" method="POST">
+                <input type="hidden" name="id" value="{{ assento_comprado.id }}">
+                
+                <div class="form-group">
+                    <label for="assento">Número do Assento:</label>
+                    <input type="text" id="assento" name="assento" class="form-control" value="{{ assento_comprado.assento }}" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Atualizar Assento</button>
+            </form>
+            
+            <a href="{{ url_for('listar_compras_assentos') }}">Voltar para lista de compras</a>
+        </div>
+    </body>
+</html>

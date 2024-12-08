@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+
+        <title>Comprar alimento</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Compras de Alimentos</h1>
+            <ul>
+                {% for compra in compras_alimentos %}
+                    <li>
+                        Alimento: {{ compra.alimento.nome }} | Quantidade: {{ compra.quantidade }} | Subtotal: R$ {{ compra.subtotal }}
+                        
+                        <form action="{{ url_for('remover_compra_alimento') }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="{{ compra.id }}">
+                            <button type="submit">Remover</button>
+                        </form>
+
+                        <a href="{{ url_for('atualizar_compra_alimento') }}?id={{ compra.id }}">Editar</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <form action="{{ url_for('comprar_alimento') }}" method="POST">
+                <label for="alimento_id">Escolha o Alimento:</label>
+                <select name="alimento_id" required>
+                    {% for alimento in alimentos %}
+                        <option value="{{ alimento.id }}">{{ alimento.nome }} (Quantidade: {{ alimento.quantidade }})</option>
+                    {% endfor %}
+                </select><br>
+                
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" name="quantidade" min="1" required><br>
+                <br>
+                <button type="submit">Finalizar compra</button>
+            </form>        
+            <br><br>
+            <a href="{{url_for('ver_alimentos')}}" class="button">Voltar para a página anterior</a>
+        </div>
+    </body>
+</html>

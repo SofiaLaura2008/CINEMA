@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adicionar Filme</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Adicionar Filme</h2>
+
+            <!-- Formulário para adicionar filme -->
+            <form method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="duracao">Duração (em minutos)</label>
+                    <input type="number" id="duracao" name="duracao" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="classificacao">Classificação</label>
+                    <input type="text" id="classificacao" name="classificacao" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="genero">Gênero</label>
+                    <input type="text" id="genero" name="genero" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="data_lancamento">Data de Lançamento</label>
+                    <input type="date" id="data_lancamento" name="data_lancamento" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="foto">Foto</label>
+                    <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Adicionar Filme</button>
+                <br><br><br>
+                <a href="{{ url_for('perfil') }}" class="button">Voltar para o perfil</a>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="container mt-3">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

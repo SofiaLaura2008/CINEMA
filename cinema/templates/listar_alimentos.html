@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+
+        <title>Alimentos Disponíveis</title>
+    </head>
+    <body>
+        <div class="container">
+        <h1>Alimentos Disponíveis</h1>
+            <ul>
+                {% for alimento in alimentos %}
+                <li>
+                    {{ alimento.nome }} - R$ {{ alimento.preco }} - {{alimento.quantidade}}
+                </li>
+                {% endfor %}
+            </ul>
+            <br><br>
+            <a href="{{url_for('comprar_alimento')}}" class="button">Comprar alimentos</a>
+            <br><br><br>
+            <a href="{{url_for('logado')}}" class="button">Voltar para a página anterior</a>
+        </div>
+    </body>
+</html>

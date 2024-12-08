@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+
+        <title>Document</title>
+    </head>
+    <body>
+        <tbody>
+            {% for sessao in sessoes %}
+            <tr>
+                <td>{{ sessao.id }}</td>
+                <td>{{ sessao.filme.titulo }}</td>
+                <td>{{ sessao.sala.numero }}</td>
+                <td>{{ sessao.horario.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>R${{ sessao.preco | round(2) }} </td>
+                <td><a href="{{ url_for('comprar_assento', sessao_id=sessao.id) }}">Finalizar compra</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </body>
+</html>

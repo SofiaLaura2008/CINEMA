@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adicionar sala</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Adicionar sala</h1>
+            <form method="POST" action="{{ url_for('adicionar_sala') }}">
+                <div>
+                    <label for="numero">Número da Sala:</label>
+                    <input type="text" name="numero" id="numero" required>
+                </div>
+                <div>
+                    <label for="capacidade">Capacidade:</label>
+                    <input type="number" name="capacidade" id="capacidade" required>
+                </div>
+                <div>
+                    <label for="cinema_id">Cinema:</label>
+                    <select name="cinema_id" id="cinema_id" required>
+                        {% for cinema in cinemas %}
+                        <option value="{{ cinema.id }}">{{ cinema.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <br>
+                <button type="submit">Adicionar Sala</button>
+            </form>
+            
+            <br><br>
+            <a href="{{ url_for('perfil') }}" class="button">Voltar para o perfil</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comprar Assento</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Comprar Assentos</h1>
+
+            <form action="{{ url_for('comprar_assento') }}" method="POST">
+                <input type="hidden" name="sessao_id" value="{{ sessao.id }}">
+                <label for="assento">Escolha o Assento(compre um por vez):</label>
+                <input type="text" name="assento" placeholder="Ex: A1" required><br>
+            
+                <button type="submit">Comprar Assento</button>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            <br><br><br>
+            <a href="{{ url_for('logado') }}" class="button">Voltar ao Painel</a>
+        </div>
+    </body>
+</html>

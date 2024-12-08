@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Deletar Sala</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Deletar sessão</h1>
+            <form method="POST" action="{{ url_for('deletar_sessao') }}">
+                <label for="nome_filme">Filme:</label>
+                <select name="nome_filme" required>
+                    <option value="" disabled selected>Selecione um filme</option>
+                    {% for filme in filmes %}
+                        <option value="{{ filme.titulo }}">{{ filme.titulo }}</option>
+                    {% endfor %}
+                </select>
+            
+                <label for="horario">Horário:</label>
+                <input type="datetime-local" name="horario" required>
+            
+                <button type="submit">Deletar Sessão</button>
+            </form>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

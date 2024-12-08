@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Deletar Sala</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Deletar Sala</h1>
+            <form method="POST" action="{{ url_for('deletar_sala') }}">
+                <div>
+                    <label for="numero_sala">Número da Sala:</label>
+                    <input type="text" name="numero_sala" id="numero_sala" required>
+                </div>
+                <br>
+                <div>
+                    <label for="senha_admin">Senha de Administrador:</label>
+                    <input type="password" name="senha_admin" id="senha_admin" required>
+                </div>
+                <br>
+                <button type="submit">Deletar Sala</button>
+                <br><br>
+                <a href="{{ url_for('gerenciar_salas') }}" class="btn btn-secondary">Voltar para Gerenciar Salas</a>
+            </form>
+        
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

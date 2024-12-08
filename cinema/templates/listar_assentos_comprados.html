@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Compras de Alimentos</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Lista de Compras de Assentos</h1>
+
+            {% if compras_assentos %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome da sessão</th>
+                            <th>Assentos</th>
+                            <th>Preço da sessão</th>
+                            <th>Subtotal</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for compra in compras_assentos %}
+                            <tr>
+                                <td>{{ compra.id }}</td>
+                                <td>{{ compra.sessao.filme.titulo }}</td>
+                                <td>{{ compra.assento }}</td>
+                                <td>R$ {{ "%.2f"|format(compra.sessao.preco) }}</td>
+                                <td>R$ {{ "%.2f"|format(compra.sessao.preco) }}</td>
+                                <td>
+                                    <form action="{{ url_for('remover_compra_assentos') }}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="id" value="{{ compra.id }}">
+                                        <button type="submit">Remover</button>
+                                    </form>
+                                    <a href="{{ url_for('atualizar_compra_assentos') }}?id={{ compra.id }}">Editar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Não há compras registradas no momento.</p>
+            {% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <br>
+            <a href="{{ url_for('logado') }}">Voltar para a página inicial</a>
+        </div>
+    </body>
+</html>

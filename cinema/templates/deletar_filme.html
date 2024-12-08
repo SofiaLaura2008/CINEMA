@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Deletar Conta</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <div>
+        <div class="container">
+            <h1>Deletar Filme</h1>
+            <form method="POST" action="{{ url_for('deletar_filme') }}">
+                <label for="nome_filme">Nome do Filme:</label>
+                <input type="text" id="nome_filme" name="nome_filme" required>
+
+                <label for="senha_admin">Senha do Admin:</label>
+                <input type="password" id="senha_admin" name="senha_admin" required>
+                <br><br>
+                <button type="submit">Deletar Filme</button>
+            </form>
+            <br>
+            <a href="{{ url_for('perfil') }}">Voltar para p perfil</a>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Adicionar Cinema</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Adicionar Cinema</h1>
+            <form action="{{ url_for('adicionar_cinema') }}" method="POST">
+                <div class="form-group">
+                    <label for="nome">Nome do Cinema:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="local">Localização:</label>
+                    <input type="text" id="local" name="local" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="capacidade">Capacidade:</label>
+                    <input type="number" id="capacidade" name="capacidade" class="form-control" required min="1">
+                </div>
+
+                <br>
+                <button type="submit" class="button">Adicionar Cinema</button>
+            </form>
+            <br><br>
+            <a href="{{ url_for('perfil') }}" class="button">Voltar para o perfil</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <ul class="flash-messages">
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

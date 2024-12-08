@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Atualizar Cinema</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Atualizar Cinema</h1>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="nome_cinema" class="form-label">Nome do Cinema(Atual)</label>
+                    <input type="text" class="form-control" id="nome_cinema" name="nome_cinema" required>
+                </div>
+                <div class="mb-3">
+                    <label for="senha_admin" class="form-label">Senha de Admin</label>
+                    <input type="password" class="form-control" id="senha_admin" name="senha_admin" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Cinema</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="mb-3">
+                    <label for="local" class="form-label">Local</label>
+                    <input type="text" class="form-control" id="local" name="local" required>
+                </div>
+                <div class="mb-3">
+                    <label for="capacidade" class="form-label">Capacidade</label>
+                    <input type="number" class="form-control" id="capacidade" name="capacidade" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Atualizar Cinema</button>
+            </form>
+            <br>
+            <a href="{{ url_for('perfil') }}" class="btn btn-secondary">Voltar para o perfil</a>
+        </div>
+    </body>
+</html>

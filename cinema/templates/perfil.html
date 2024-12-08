@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bilheteira</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/logado.css') }}">
+        <style>
+            p{
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Perfil de {{ usuario.nome }}</h1>
+            <p><strong>Email:</strong> {{ usuario.email }}</p>
+            <p><strong>Data de Nascimento:</strong> {{ usuario.data_nascimento }}</p>
+            <p><strong>Admin:</strong> 
+                {% if usuario.is_admin %} 
+                    Sim 
+                {% else %}
+                    Não 
+                {% endif %}
+            </p>
+
+            <a href="{{ url_for('deletar_usuario') }}" class="button">Deletar Conta</a>
+            <a href="{{ url_for('atualizar_usuario') }}" class="button">Atualizar Conta</a>
+            <br>
+            <br>
+            <br><br>
+            {% if usuario.is_admin %} 
+                <a href="{{ url_for('listar_usuarios') }}" class="button">Ver usuários cadastrados</a>
+                <a href="{{ url_for('gerenciar_filmes') }}" class="button">Filmes</a>
+                <a href="{{ url_for('gerenciar_cinemas') }}" class="button">Cinemas</a>
+                <a href="{{ url_for('gerenciar_salas') }}" class="button">Salas</a>
+                <a href="{{ url_for('gerenciar_sessoes') }}" class="button">Sessões</a>
+                <a href="{{ url_for('gerenciar_alimentos') }}" class="button">Alimento</a>
+                <br>
+                <br>
+                <br><br>
+            {% endif %}
+            <a href="{{ url_for('logado') }}" class="button">Ir para a página inicial</a>
+            <a href="{{ url_for('logout') }}" class="button">Sair</a><br><br>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="container mt-3">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

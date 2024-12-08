@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adicionar Cinema</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Adicionar nova sessão</h1>
+        <form action="{{ url_for('adicionar_sessao') }}" method="POST">
+            <label for="filme_id">Filme:</label>
+            <select name="filme_id" id="filme_id" required>
+                <option value="" disabled selected>Selecione um filme</option>
+                {% for filme in filmes %}
+                    <option value="{{ filme.id }}">{{ filme.titulo }}</option>
+                {% endfor %}
+            </select>
+            <br>
+    
+            <label for="sala_id">Sala:</label>
+            <select name="sala_id" id="sala_id" required>
+                <option value="" disabled selected>Selecione uma sala</option>
+                {% for sala in salas %}
+                    <option value="{{ sala.id }}">Sala {{ sala.numero }} (Capacidade: {{ sala.capacidade }})</option>
+                {% endfor %}
+            </select>
+            <br>
+    
+            <label for="horario">Horário:</label>
+            <input type="datetime-local" name="horario" id="horario" required>
+            <br>
+    
+            <label for="preco">Preço:</label>
+            <input type="number" step="0.01" name="preco" id="preco" required>
+            <br><br>
+            <button type="submit">Adicionar Sessão</button>
+            <br>
+        </form>
+        <br><br>
+        <a href="{{ url_for('perfil') }}" class="button">Voltar para o perfil</a>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>

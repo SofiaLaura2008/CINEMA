@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Meu Carrinho</title>
+    </head>
+    <body>
+        <h1>Meu Carrinho</h1>
+        <ul>
+            {% for compra in compras %}
+            <li>
+                {{ compra.alimento.nome }} - Quantidade: {{ compra.quantidade }} - Total: R$ {{ compra.total }}
+                <a href="{{ url_for('remover_do_carrinho', compra_id=compra.id) }}">Remover</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <h3>Total Geral: R$ {{ total_geral }}</h3>
+        <button>Finalizar Compra!</button>
+    </body>
+</html>

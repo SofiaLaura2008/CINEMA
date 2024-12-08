@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Atualizar Dados</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/adicionar_filmes.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h2>Atualizar dados da sessão</h2>
+            <form method="POST">
+                <label for="nome_filme">Nome do Filme:</label>
+                <select name="nome_filme" id="nome_filme" required>
+                    {% for filme in filmes %}
+                        <option value="{{ filme.titulo }}" {% if filme.titulo == sessao.filme_id %}selected{% endif %}>
+                            {{ filme.titulo }}
+                        </option>
+                    {% endfor %}
+                </select>
+            
+                <label for="horario">Horário:</label>
+                <input type="datetime-local" name="horario" id="horario" value="{{ sessao.horario_formatado }}" required>
+            
+                <label for="sala_id">Sala:</label>
+                <select name="sala_id" id="sala_id" required>
+                    {% for sala in salas %}
+                        <option value="{{ sala.id }}" {% if sala.id == sessao.sala_id %}selected{% endif %}>
+                            Sala {{ sala.numero }}
+                        </option>
+                    {% endfor %}
+                </select>
+            
+                <label for="preco">Preço:</label>
+                <input type="number" step="0.01" name="preco" id="preco" value="{{ sessao.preco }}" required>
+            
+                <button type="submit">Atualizar Sessão</button>
+            </form>
+            
+            <br>
+            <a href="{{ url_for('perfil') }}" class="button">Voltar para o perfil</a>
+        </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </body>
+</html>

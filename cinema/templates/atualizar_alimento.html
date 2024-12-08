@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Atualizar Cinema</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Atualizar Cinema</h1>
+            <form method="POST">
+                <div>
+                    <label for="nome" class="form-label">Nome do Alimento</label>
+                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do alimento" required>
+                </div>
+                <div>
+                    <label for="preco" class="form-label">Preço</label>
+                    <input type="text" class="form-control" id="preco" name="preco" value="{{ alimento.preco }}" required>
+                </div>
+                <div>
+                    <label for="tipoDeAlimentos" class="form-label">Tipo de Alimento</label>
+                    <input type="text" class="form-control" id="tipoDeAlimentos" name="tipoDeAlimentos" value="{{ alimento.tipoDeAlimentos }}" required>
+                </div>
+                <div>
+                    <label for="senha_admin" class="form-label">Senha do Administrador</label>
+                    <input type="password" class="form-control" id="senha_admin" name="senha_admin" placeholder="Digite a senha do administrador" required>
+                </div>
+                <div>
+                    <label for="quantidade" class="form-label">Quantidade</label>
+                    <input type="text" class="form-control" id="quantidade" name="quantidade" placeholder="Digite a quantidade de produto" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </form>
+            <br>
+            <a href="{{ url_for('perfil') }}" class="btn btn-secondary">Voltar para o perfil</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>

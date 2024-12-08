@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Bilheteira</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/logado.css') }}">
+
+    </head>
+    <body>
+        <div class="container">
+            <h1>Seja Bem-vindo à nossa Bilheteira</h1>
+            <p>Escolha uma das opções abaixo para começar a comprar seus ingressos ou explorar filmes!</p>
+        
+
+            <a href="{{url_for('listar_filmes')}}" class="button">Ver Filmes</a>
+            <a href="{{url_for('ver_Sessoes')}}" class="button">Ver Sessões</a>
+            <a href="{{url_for('ver_alimentos')}}" class="button">Comprar alimento</a>
+            <a href="{{url_for('perfil')}}" class="button">Ver perfil</a>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="container mt-3">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </body>
+</html>
