@@ -255,7 +255,7 @@ def deletar_filme():
 @login_required
 @admin_required
 def atualizar_filme():
-    usuario = current_user  # Certifique-se de definir a variável 'usuario'
+    usuario = current_user
     if request.method == 'POST':
         nome_filme = request.form['nome_filme']  # Nome do filme a ser atualizado
         senha_admin = request.form['senha_admin']  # Senha do admin
@@ -266,9 +266,8 @@ def atualizar_filme():
             flash("Filme não encontrado.", "warning")
             return redirect(url_for('atualizar_filme'))
 
-        # Verifica a senha do admin
         admin = Usuario.query.get(current_user.id)
-        if not check_password_hash(admin.senha, senha_admin):
+        if not check_password_hash(admin.senha, senha_admin): # Verifica a senha do admin
             flash("Senha incorreta. Tente novamente.", "danger")
             return redirect(url_for('atualizar_filme'))
 
@@ -302,7 +301,7 @@ def atualizar_filme():
 @login_required
 @admin_required
 def gerenciar_cinemas():
-    cinema = Cinema.query.all()  # Busca todos os filmes cadastrados
+    cinema = Cinema.query.all()  # Busca todos os cinemas cadastrados
     return render_template('cinemas.html', cinema=cinema)
 
 #Adicionar cinema
@@ -328,16 +327,16 @@ def adicionar_cinema():
 
     return render_template('adicionar_cinema.html')
 
-#atualizar dados do filme
+#atualizar dados do cinema
 @app.route('/atualizar_cinema', methods=['GET', 'POST'])
 @login_required
 @admin_required
 def atualizar_cinema():
     if request.method == 'POST':
-        nome_cinema = request.form['nome_cinema']  # Nome do filme a ser atualizado
+        nome_cinema = request.form['nome_cinema']  # Nome do cinema a ser atualizado
         senha_admin = request.form['senha_admin']  # Senha do admin
 
-        # Busca o filme pelo nome
+        # Busca o cinema pelo nome
         cinema = Cinema.query.filter_by(nome=nome_cinema).first()
         if not cinema:
             flash("Cinema não encontrado.", "warning")
@@ -349,7 +348,7 @@ def atualizar_cinema():
             flash("Senha incorreta. Tente novamente.", "danger")
             return redirect(url_for('atualizar_filme'))
 
-        # Atualiza os dados do filme
+        # Atualiza os dados do cinema
         cinema.nome = request.form['nome']
         cinema.local = request.form['local']
         cinema.capacidade = request.form['capacidade']
@@ -370,10 +369,10 @@ def atualizar_cinema():
 @admin_required
 def deletar_cinema():
     if request.method == 'POST':
-        nome_cinema = request.form['nome_cinema'] #pede o nome do filme
+        nome_cinema = request.form['nome_cinema'] #pede o nome do cinema
         senha_admin = request.form['senha_admin'] #pede a senha
 
-        cinema = Cinema.query.filter_by(nome=nome_cinema).first()# Busca o filme pelo nome
+        cinema = Cinema.query.filter_by(nome=nome_cinema).first()# Busca o cinema pelo nome
         if not cinema:
             flash("Filme não encontrado.", "warning")
             return redirect(url_for('deletar_cinema'))
@@ -384,7 +383,7 @@ def deletar_cinema():
             return redirect(url_for('deletar_cinema'))
 
         try:
-            db.session.delete(cinema) #deleta o filme
+            db.session.delete(cinema) #deleta o cinema
             db.session.commit()#atualiza o banco de dados
             flash("Cinema deletado com sucesso.", "success")
             return redirect(url_for('gerenciar_cinemas'))
@@ -402,7 +401,7 @@ def deletar_cinema():
 @admin_required
 def gerenciar_salas():
     salas = Sala.query.all()  # Busca todas as salas cadastradas
-    return render_template('salas.html', salas=salas)  # Tabela de Salas
+    return render_template('salas.html', salas=salas) 
 
 #Adicionar sala
 @app.route('/adicionar_sala', methods=['GET', 'POST'])
@@ -438,7 +437,7 @@ def atualizar_sala():
         numero_sala = request.form['numero_sala']
         senha_admin = request.form['senha_admin']
 
-        # Busca o filme pelo nome
+        # Busca a sala pelo numero
         sala = Sala.query.filter_by(numero=numero_sala).first()
         if not sala:
             flash("Sala não encontrada.", "warning")
@@ -450,7 +449,7 @@ def atualizar_sala():
             flash("Senha incorreta. Tente novamente.", "danger")
             return redirect(url_for('atualizar_filme'))
 
-        # Atualiza os dados do filme
+        # Atualiza os dados da sala
         sala.numero = request.form['novo_numero']
         sala.capacidade = request.form['nova_capacidade']
 
@@ -470,10 +469,10 @@ def atualizar_sala():
 @admin_required
 def deletar_sala():
     if request.method == 'POST':
-        numero_sala = request.form['numero_sala'] #pede o nome do filme
+        numero_sala = request.form['numero_sala'] #pede o nome da sala
         senha_admin = request.form['senha_admin'] #pede a senha
 
-        sala = Sala.query.filter_by(numero=numero_sala).first()# Busca o filme pelo nome
+        sala = Sala.query.filter_by(numero=numero_sala).first()# Busca a sala pelo numero
         if not sala:
             flash("Sala não encontrada.", "warning")
             return redirect(url_for('deletar_sala'))
@@ -484,7 +483,7 @@ def deletar_sala():
             return redirect(url_for('deletar_sala'))
 
         try:
-            db.session.delete(sala) #deleta o filme
+            db.session.delete(sala) #deleta a sala
             db.session.commit()#atualiza o banco de dados
             flash("Sala deletada com sucesso.", "success")
             return redirect(url_for('gerenciar_salas'))
@@ -502,13 +501,13 @@ def deletar_sala():
 @admin_required
 def gerenciar_sessoes():
     sessao = Sessao.query.all()  # Busca todas as sessoes cadastradas
-    return render_template('sessao.html', sessao=sessao)  # Tabela de sessoes
+    return render_template('sessao.html', sessao=sessao)  
 
 @app.route('/sessoes')
 @login_required
 def ver_Sessoes():
     sessao = Sessao.query.all()  # Busca todas as sessoes cadastradas
-    return render_template('listar_sessoes.html', sessao=sessao)  # Tabela de sessoes
+    return render_template('listar_sessoes.html', sessao=sessao)  
 
 #adicionar sessoes
 @app.route('/adicionar_sessao', methods=['GET', 'POST'])
@@ -626,7 +625,7 @@ def deletar_sessao():
 @login_required
 @admin_required
 def gerenciar_alimentos():
-    alimentos = Alimento.query.all()  # Busca todas as salas cadastradas
+    alimentos = Alimento.query.all()  # Busca todas os alimentos cadastradas
     return render_template('alimento.html', alimentos=alimentos)  # Tabela de Salas
 
 
@@ -679,7 +678,7 @@ def atualizar_alimentos():
         admin = Usuario.query.get(current_user.id)
         if not check_password_hash(admin.senha, senha_admin):
             flash("Senha incorreta. Tente novamente.", "danger")
-            return redirect(url_for('atualizar_alimentos'))  # Mantém na página de atualização
+            return redirect(url_for('atualizar_alimentos')) 
 
         # Atualiza os dados do alimento
         alimento.preco = request.form['preco']
@@ -712,22 +711,22 @@ def deletar_alimentos():
         alimento = Alimento.query.filter_by(nome=nome).first()
         if not alimento:
             flash("Alimento não encontrado.", "warning")
-            return redirect(url_for('gerenciar_alimentos'))  # Redireciona para a página de gerenciamento
+            return redirect(url_for('gerenciar_alimentos'))  
 
         # Verifica a senha do admin
         admin = Usuario.query.get(current_user.id)
         if not check_password_hash(admin.senha, senha_admin):
             flash("Senha incorreta. Tente novamente.", "danger")
-            return redirect(url_for('deletar_alimentos'))  # Mantém na página de deleção
+            return redirect(url_for('deletar_alimentos'))  
 
         # Deleta o alimento do banco de dados
         try:
             db.session.delete(alimento)
             db.session.commit()  # Confirma a deleção
             flash('Alimento deletado com sucesso!', 'success')
-            return redirect(url_for('gerenciar_alimentos'))  # Redireciona para a página de gerenciamento
+            return redirect(url_for('gerenciar_alimentos'))  
         except Exception as e:
-            db.session.rollback()  # Caso ocorra um erro, desfaz a operação
+            db.session.rollback()  # desfaz a operação
             flash(f'Erro ao deletar o alimento: {e}', 'danger')
             return redirect(url_for('gerenciar_alimentos'))
 
@@ -795,7 +794,7 @@ def remover_compra_assentos():
         assento_comprado = AssentoComprado.query.get(assento_id)
         
         if assento_comprado:
-            # Antes de deletar o assento comprado, remova também as entradas na tabela CompraSessao
+            # Antes de deletar o assento comprado, remove as entradas na tabela CompraSessao
             compra_sessao = CompraSessao.query.filter_by(sessao_id=assento_comprado.sessao_id).first()
             if compra_sessao:
                 db.session.delete(compra_sessao)
@@ -834,7 +833,6 @@ def atualizar_compra_assentos():
             flash("Assento não encontrado.", "error")
             return redirect(url_for('listar_compras_assentos'))
 
-    # Para GET, buscamos o id do assento da URL
     assento_id = request.args.get('id')
     assento_comprado = AssentoComprado.query.get(assento_id)
     
@@ -865,12 +863,11 @@ def comprar_alimento():
             flash("Quantidade excede o estoque disponível!", "error")
             return redirect(url_for('comprar_alimento'))
 
-        # Calcular subtotal
         preco_unitario = alimento.preco
         subtotal = preco_unitario * quantidade
 
-        # Obter o carrinho (placeholder para este exemplo)
-        carrinho_id = 1  # Substitua conforme necessário
+        # Obter o carrinho 
+        carrinho_id = 1  
 
         # Criar a nova compra
         compra_alimento = CompraAlimento(
@@ -915,7 +912,6 @@ def atualizar_compra_alimento():
         db.session.commit()
         return redirect(url_for('listar_compras_alimentos'))
 
-    # If GET, retrieve the purchase data to edit
     id = request.args.get('id')
     compra = CompraAlimento.query.get(id)
     return render_template('editar_compra_alimento.html', compra=compra)
@@ -937,7 +933,6 @@ def finalizar_compra():
         db.session.delete(compra)
     
     db.session.commit()  # Aplica a exclusão no banco de dados
-
     return redirect(url_for('compras_finalizadas'))  # Redireciona para uma página de confirmação
 
 if __name__ == "__main__":
