@@ -40,7 +40,7 @@
                         <td>{{ sessao.filme.titulo }}</td>
                         <td>{{ sessao.sala.numero }}</td>
                         <td>{{ sessao.horario.strftime('%d/%m/%Y %H:%M') }}</td>
-                        <td>{{ sessao.preco | R$ round(2) }}</td>
+                        <td>R$ {{ "%.2f"|format(sessao.preco) }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
