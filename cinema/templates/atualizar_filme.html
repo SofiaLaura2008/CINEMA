@@ -9,36 +9,52 @@
     <body>
         <div class="container">
             <h2>Atualizar dados do filme</h2>
-            <form method="POST" action="{{ url_for('atualizar_usuario') }}">
-                <div class="form-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" class="form-control" value="{{ usuario.nome }}" required>
-                </div>
+            <form action="{{ url_for('atualizar_filme') }}" method="POST">
 
-                <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" class="form-control" value="{{ usuario.email }}" required>
-                </div>
+            <div class="form-group">
+                <label for="nome_filme" class="form-label">Nome do Filme Atual:</label>
+                <input type="text" id="nome_filme" name="nome_filme" class="form-control" placeholder="Digite o nome do filme" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="senha_atual">Senha Atual</label>
-                    <input type="password" id="senha_atual" name="senha_atual" class="form-control" required>
-                </div>
+            <div class="form-group">
+                <label for="senha_admin" class="form-label">Senha de Administrador:</label>
+                <input type="password" id="senha_admin" name="senha_admin" class="form-control" placeholder="Digite sua senha" required>
+            </div>
+                
+            <div class="form-group">
+                <label for="titulo" class="form-label">Novo Título:</label>
+                <input type="text" id="titulo" name="titulo" class="form-control" placeholder="Digite o novo título" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="senha_nova">Nova Senha</label>
-                    <input type="password" id="senha_nova" name="senha_nova" class="form-control">
-                </div>
+            <div class="form-group">
+                <label for="duracao" class="form-label">Duração (em minutos):</label>
+                <input type="number" id="duracao" name="duracao" class="form-control" placeholder="Ex: 120" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="data_nascimento">Data de Nascimento</label>
-                    <input type="date" id="data_nascimento" name="data_nascimento" class="form-control" value="{{ usuario.data_nascimento }}" required>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Atualizar</button>
-            </form>
-            <br>
-            <a href="{{ url_for('perfil') }}" class="btn btn-secondary">Voltar para o perfil</a>
+            <div class="form-group">
+                <label for="classificacao" class="form-label">Classificação Etária:</label>
+                <input type="text" id="classificacao" name="classificacao" class="form-control" placeholder="Ex: 14 anos" required>
+            </div>
+
+            <div class="form-group">
+                <label for="genero" class="form-label">Gênero:</label>
+                <input type="text" id="genero" name="genero" class="form-control" placeholder="Ex: Ação, Comédia" required>
+            </div>
+
+            <div class="form-group">
+                <label for="data_lancamento" class="form-label">Data de Lançamento:</label>
+                <input type="date" id="data_lancamento" name="data_lancamento" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="foto" class="form-label">Nova Foto do Filme:</label>
+                <input type="file" id="foto" name="foto" class="form-control">
+            </div>
+
+            <button type="submit">Atualizar Filme</button>
+        </form>
+        <a href="{{ url_for('gerenciar_filmes') }}" class="button">Cancelar</a>
+        <a href="{{ url_for('perfil') }}" class="btn btn-secondary">Voltar para o perfil</a>
         </div>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
